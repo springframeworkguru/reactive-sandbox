@@ -37,13 +37,12 @@ public class ReactiveExamplesTest {
         Mono<Person> personMono = Mono.just(fiona);
 
         PersonCommand command = personMono
-                .map(person -> { //type transformation
-                    return new PersonCommand(person);
-                }).block();
+                .map(PersonCommand::new)
+                .block();
 
         log.info(command.sayMyName());
     }
-
+    
     @Test(expected = NullPointerException.class)
     public void monoFilter() throws Exception {
         Mono<Person> personMono = Mono.just(sam);
